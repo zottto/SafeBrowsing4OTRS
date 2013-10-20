@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_package version="1.0">
+    <Name>SafeBrowsing4OTRS</Name>
+    <Version>0.0.0</Version>
+    <Framework>3.3.x</Framework>
+    <Vendor>Marc Nilius</Vendor>
+    <URL>http://www.marcnilius.de/</URL>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
+    <Description Lang="en">Adds a Google Safe Browsing check to the TicketZoom to inspect all links in an article for possible security risks.</Description>
+    <Description Lang="de">Fügt eine Google Safe Browsing-Prüfung zum TicketZoom hinzu und überprüft alle Links in einem Artikel auf mögliche Sicherheitsrisiken.</Description>
+    <Filelist>
+        <File Permission="644" Location="Kernel/Config/Files/SafeBrowsing4OTRS.xml"/>
+    </Filelist>
+</otrs_package>

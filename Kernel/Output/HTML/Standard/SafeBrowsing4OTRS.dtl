@@ -1,0 +1,47 @@
+# --
+# SafeBrowsing4OTRS.dtl - provides HTML for SafeBrowsing4OTRS.pm
+# Copyright (C) 2013 Marc Nilius, http://www.marcnilius.de/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<!-- dtl:block:ErrorNoArticle -->
+<div class="SafeBrowsing NoArticle">
+    <strong>No ArticleID given!</strong>
+</div>
+<!-- dtl:block:ErrorNoArticle -->
+
+<!-- dtl:block:LinksSafe -->
+<div class="SafeBrowsing Ok">
+    <strong>According to the <a href="http://en.wikipedia.org/wiki/Google_Safe_Browsing" target="_blank">Google Safe Browsing database</a>, all links and URLs in this article are safe.</strong>
+</div>
+<!-- dtl:block:LinksSafe -->
+
+<!-- dtl:block:LinksWarning -->
+<div class="SafeBrowsing Warning">
+    <strong>According to the <a href="http://en.wikipedia.org/wiki/Google_Safe_Browsing" target="_blank">Google Safe Browsing database</a>, at least one of the links and URLs in this article is potentially unsafe. Please see the following list for details.</strong>
+    <ul>
+<!-- dtl:block:LinksWarningURL -->
+        <li><strong>$QData{"URL"}:</strong> $QData{"Warning"} (<a href="http://code.google.com/apis/safebrowsing/safebrowsing_faq.html#whyAdvisory" target="_blank">Advisory provided by Google</a>)</li>
+<!-- dtl:block:LinksWarningURL -->
+    </ul>
+<!-- dtl:block:LinksWarningMalware -->
+    <p>
+        <strong>Malware Warning:</strong><br>Visiting these web sites may harm your computer. These pages appear to contain malicious code that could be downloaded to your computer without your consent. You can learn more about harmful web content including viruses and other malicious code and how to protect your computer at <a href="StopBadware.org" target="_blank">StopBadware.org</a>.
+    </p>
+<!-- dtl:block:LinksWarningMalware -->
+<!-- dtl:block:LinksWarningPhishing -->
+    <p>
+        <strong>Phishing Warning:</strong><br>Suspected phishing pages. These pages may be a forgery or imitation of another website, designed to trick users into sharing personal or financial information. Entering any personal information on these pages may result in identity theft or other abuse. You can find out more about phishing from <a href="www.antiphishing.org" target="_blank">www.antiphishing.org</a>.
+    </p>
+<!-- dtl:block:LinksWarningPhishing -->
+</div>
+<!-- dtl:block:LinksWarning -->
+
+<!-- dtl:block:ErrorAPI -->
+<div class="SafeBrowsing Error">
+    <strong>Error connecting to the Google Safe Browsing database. Possibly your API key is invalid. Please contact your OTRS Administrator.</strong>
+</div>
+<!-- dtl:block:ErrorAPI -->

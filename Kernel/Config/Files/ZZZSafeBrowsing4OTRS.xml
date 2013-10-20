@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Changes">
+    <ConfigItem Name="SafeBrowsing::Active" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">Activates Safe Browsing feature.</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="1">Active</Item>
+                <Item Key="0">Inactive</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="SafeBrowsing::APIKey" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">The Google Safe Browsing API key. You can get your API key here: https://developers.google.com/safe-browsing/key_signup</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <String Regex=""></String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###SafeBrowsing4OTRS" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for SafeBrowsing4OTRS.</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description>SafeBrowsing4OTRS</Description>
+                <Title>SafeBrowsing4OTRS</Title>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Output::FilterElementPre###OutputFilterPreSafeBrowsing4OTRS" Required="0" Valid="1">
+        <Description Translatable="1">Output filter to add SafeBrowsing to the TicketZoom.</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>OutputFilter</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::OutputFilterPreSafeBrowsing4OTRS</Item>
+                <Item Key="Templates">
+                    <Hash>
+                        <Item Key="AgentTicketZoom">1</Item>
+                    </Hash>
+                </Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentTicketZoom" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Ticket</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description>Ticket Zoom</Description>
+                <Title>Zoom</Title>
+                <NavBarName>Ticket</NavBarName>
+                <Loader>
+                    <CSS>Core.Agent.TicketProcess.css</CSS>
+                    <CSS>SafeBrowsing4OTRS.css</CSS>
+                    <JavaScript>thirdparty/jquery-tablesorter-2.0.5/jquery.tablesorter.js</JavaScript>
+                    <JavaScript>Core.UI.Table.Sort.js</JavaScript>
+                    <JavaScript>Core.Agent.TicketZoom.js</JavaScript>
+                    <JavaScript>SafeBrowsing4OTRS.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

@@ -1,0 +1,109 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - SafeBrowsing4OTRS
+ * @copyright   Marc Nilius
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     SafeBrowsing4OTRS
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection     TicketZoom
+ */
+.SafeBrowsing {
+    margin-bottom: 10px;
+    padding: 5px;
+    height: 15px;
+    font-size: 12px;
+    text-align: center;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+}
+
+.SafeBrowsing.Checking {
+    background-color: #AAA;
+    -webkit-transition: width .4s ease-in-out;
+    -moz-transition: width .4s ease-in-out;
+    -ms-transition: width .4s ease-in-out;
+    -o-transition: width .4s ease-in-out;
+    transition: width .4s ease-in-out;
+    -webkit-background-size: 30px 30px;
+    -moz-background-size: 30px 30px;
+    background-size: 30px 30px;
+    background-image: -webkit-gradient(linear, left top, right bottom,
+                        color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
+                        color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .15)),
+                        color-stop(.75, rgba(255, 255, 255, .15)), color-stop(.75, transparent),
+                        to(transparent));
+    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    -webkit-animation: animate-stripes 3s linear infinite;
+    -moz-animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+@-moz-keyframes animate-stripes {
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+
+.SafeBrowsing.Ok {
+    background-color: #098716;
+    color: #FFF;
+}
+
+.SafeBrowsing.Ok a {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+.SafeBrowsing.Error {
+    background-color: #FF0000;
+    color: #FFF;
+}
+
+.SafeBrowsing.Warning {
+    background-color: #F03432;
+    color: #000;
+    height: auto;
+}
+
+.SafeBrowsing.Warning a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.SafeBrowsing.Warning p {
+    margin-bottom: 10px;
+}
+
+.SafeBrowsing.Warning ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+} /* end @media */
