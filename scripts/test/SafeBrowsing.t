@@ -32,7 +32,6 @@ my $SafeBrowsingObject = Kernel::System::SafeBrowsing->new(
     LogObject    => $LogObject,
 );
 
-
 # Test 1 - Single URL, no risk
 my $Result = $SafeBrowsingObject->CheckUrl(
     URL => 'http://www.marcnilius.de',
@@ -62,7 +61,7 @@ $Self->Is(
 );
 
 # Test 3 - Multiple URLs, all ok
-my @URLs = ('http://www.marcnilius.de', 'http://www.seofacts.info');
+my @URLs = ( 'http://www.marcnilius.de', 'http://www.seofacts.info' );
 $Result = $SafeBrowsingObject->CheckUrl(
     URL => \@URLs,
 );
@@ -74,7 +73,7 @@ $Self->Is(
 );
 
 # Test 4 - Multiple URLs, at least one is risky
-@URLs = ('http://www.marcnilius.de', 'http://www.seofacts.info', 'http://ianfette.org/');
+@URLs = ( 'http://www.marcnilius.de', 'http://www.seofacts.info', 'http://ianfette.org/' );
 $Result = $SafeBrowsingObject->CheckUrl(
     URL => \@URLs,
 );

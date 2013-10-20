@@ -1,5 +1,5 @@
 # --
-# Kernel/Output/HTML/OutputFilterPreSafebrowsing4OTRS.pm
+# Kernel/Output/HTML/OutputFilterPreSafeBrowsing4OTRS.pm
 # Copyright (C) 2013 Marc Nilius, http://www.marcnilius.de/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see

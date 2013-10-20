@@ -59,7 +59,7 @@ sub new {
         $Self->{$_} = $Param{$_} || die "Got no $_!";
     }
 
-    $Self->{UserAgent} = LWP::UserAgent->new;
+    $Self->{UserAgent} = LWP::UserAgent->new();
 
     return $Self;
 }
@@ -96,43 +96,46 @@ sub CheckUrl {
     }
 
     # Define API-URL and Request object
-    my $APIUrl = "https://sb-ssl.google.com/safebrowsing/api/lookup?client=SafeBrowsing4OTRS&apikey=" . $APIKey . "&appver=1.5.2&pver=3.0";
-    my $Request = HTTP::Request->new(POST => $APIUrl);
+    my $APIUrl
+        = "https://sb-ssl.google.com/safebrowsing/api/lookup?client=SafeBrowsing4OTRS&apikey="
+        . $APIKey
+        . "&appver=1.5.2&pver=3.0";
+    my $Request = HTTP::Request->new( POST => $APIUrl );
 
     # build post data
     my $URLCount = 0;
-    my $URLList = '';
+    my $URLList  = '';
 
-    if (ref $Param{URL} eq 'ARRAY') {
+    if ( ref $Param{URL} eq 'ARRAY' ) {
         $URLCount = scalar @{ $Param{URL} };
-        $URLList = join("\n", @{ $Param{URL} });
+        $URLList = join( "\n", @{ $Param{URL} } );
     }
     else {
         $URLCount = 1;
-        $URLList = $Param{URL}
+        $URLList  = $Param{URL}
     }
 
-    $Request->content($URLCount . "\n" . $URLList);
+    $Request->content( $URLCount . "\n" . $URLList );
 
     # send POST request and save response
     my $Response = $Self->{UserAgent}->request($Request);
 
     # error while checking (Bad Request, API key not valid, service unavailable)
-    if ( $Response->code == 400 || $Response->code == 401 || $Response->code == 503 ) {
+    if ( $Response->code() == 400 || $Response->code() == 401 || $Response->code() == 503 ) {
         return { Status => 'Error' };
     }
 
     # all URLs are ok
-    if ( $Response->code == 204 ) {
+    if ( $Response->code() == 204 ) {
         return { Status => 'Ok' };
     }
 
     # at least one URL must have a potential security risk
-    my @Result = split(/\n/, $Response->decoded_content);
+    my @Result = split( /\n/, $Response->decoded_content() );
     my %ResultHash;
 
     # map request response to the URLs we sent to the API
-    if (ref $Param{URL} eq 'ARRAY') {
+    if ( ref $Param{URL} eq 'ARRAY' ) {
         @ResultHash{ @{ $Param{URL} } } = @Result;
     }
     else {
@@ -141,15 +144,15 @@ sub CheckUrl {
 
     # get all risky URLs and there "type" (malware or phishing)
     my %Risky;
-    foreach (keys %ResultHash) {
-        if ( $ResultHash{$_} eq 'malware' || $ResultHash{$_} eq 'phishing') {
+    for ( sort keys %ResultHash ) {
+        if ( $ResultHash{$_} eq 'malware' || $ResultHash{$_} eq 'phishing' ) {
             $Risky{$_} = $ResultHash{$_};
         }
     }
 
     return {
         Status => 'Warning',
-        URL => \%Risky,
+        URL    => \%Risky,
     };
 }
 

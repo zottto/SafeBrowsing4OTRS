@@ -12,7 +12,7 @@
         </Setting>
     </ConfigItem>
     <ConfigItem Name="SafeBrowsing::APIKey" Required="1" Valid="1" ConfigLevel="200">
-        <Description Translatable="1">The Google Safe Browsing API key. You can get your API key here: https://developers.google.com/safe-browsing/key_signup</Description>
+        <Description Translatable="1">The Google Safe Browsing API key. You can get your API key here: https://developers.google.com/safe-browsing/key_signup.</Description>
         <Group>SafeBrowsing4OTRS</Group>
         <SubGroup>Core</SubGroup>
         <Setting>

@@ -69,7 +69,11 @@ sub Run {
     my $Text = $Article{Body};
 
     my %URLs;
-    while ($Text =~ /((http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*))/g) {
+    while (
+        $Text
+        =~ /((http(?:s)?\:\/\/[a-zA-Z0-9\-]+(?:\.[a-zA-Z0-9\-]+)*\.[a-zA-Z]{2,6}(?:\/?|(?:\/[\w\-]+)*)(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*))/g
+        )
+    {
         $URLs{$1} = 1;
     }
 
@@ -94,9 +98,9 @@ sub Run {
         );
 
         my $Phishing = 0;
-        my $Malware = 0;
+        my $Malware  = 0;
 
-        foreach (keys $Result->{URL}) {
+        for ( sort keys $Result->{URL} ) {
             if ( $Result->{URL}->{$_} eq 'malware' ) {
                 $Malware++;
             }
@@ -114,13 +118,13 @@ sub Run {
             );
         }
 
-        if ( $Malware ) {
+        if ($Malware) {
             $Self->{LayoutObject}->Block(
                 Name => 'LinksWarningMalware',
             );
         }
 
-        if ( $Phishing ) {
+        if ($Phishing) {
             $Self->{LayoutObject}->Block(
                 Name => 'LinksWarningPhishing',
             );
