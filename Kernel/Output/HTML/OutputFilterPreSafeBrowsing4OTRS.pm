@@ -59,13 +59,24 @@ sub Run {
     return 1 if !$ValidTemplates->{$TemplateName};
 
     if ( $Self->{ConfigObject}->Get('SafeBrowsing::Active') ) {
+
+        my $ModuleConfig = {
+            FadeOut      => $Self->{ConfigObject}->Get('SafeBrowsing::FadeOutMessage'),
+            FadeOutTime  => $Self->{ConfigObject}->Get('SafeBrowsing::FadeOutTime'),
+            OnlyExternal => $Self->{ConfigObject}->Get('SafeBrowsing::CheckOnlyExternalMessages'),
+        };
+
+        my $ModuleConfigJSON = $Self->{JSONObject}->Encode(
+            Data => $ModuleConfig,
+        );;
+
         my $SafeBrowsing = <<"EOF";
-<div class="SafeBrowsing Checking">
-    Checking article links for security risks...
+<div class="SafeBrowsing Checking Hidden">
+    \$Text{"Checking article links for security risks..."}
 </div>
 <!-- dtl:js_on_document_complete -->
 <script type="text/javascript">//<![CDATA[
-    SafeBrowsing4OTRS.Init();
+    SafeBrowsing4OTRS.Init($ModuleConfigJSON);
 //]]></script>
 <!-- dtl:js_on_document_complete -->
 EOF

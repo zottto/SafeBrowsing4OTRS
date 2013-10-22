@@ -3,20 +3,50 @@
     <ConfigItem Name="SafeBrowsing::Active" Required="1" Valid="1" ConfigLevel="200">
         <Description Translatable="1">Activates Safe Browsing feature.</Description>
         <Group>SafeBrowsing4OTRS</Group>
-        <SubGroup>Core</SubGroup>
+        <SubGroup>Settings</SubGroup>
         <Setting>
             <Option SelectedID="1">
-                <Item Key="1">Active</Item>
-                <Item Key="0">Inactive</Item>
+                <Item Key="1" Translatable="1">Active</Item>
+                <Item Key="0" Translatable="1">Inactive</Item>
             </Option>
         </Setting>
     </ConfigItem>
     <ConfigItem Name="SafeBrowsing::APIKey" Required="1" Valid="1" ConfigLevel="200">
         <Description Translatable="1">The Google Safe Browsing API key. You can get your API key here: https://developers.google.com/safe-browsing/key_signup.</Description>
         <Group>SafeBrowsing4OTRS</Group>
-        <SubGroup>Core</SubGroup>
+        <SubGroup>Settings</SubGroup>
         <Setting>
             <String Regex=""></String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="SafeBrowsing::CheckOnlyExternalMessages" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">Only check incoming messages for potentially unsafe links and URLs.</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Settings</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="1" Translatable="1">Check only incoming / external messages</Item>
+                <Item Key="0" Translatable="1">Check all articles</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="SafeBrowsing::FadeOutMessage" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">If the module does not find any potentially unsafe links and URLs, fade out the info message after some seconds.</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Settings</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="1" Translatable="1">Fade out message after some seconds</Item>
+                <Item Key="0" Translatable="1">Always show message</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="SafeBrowsing::FadeOutTime" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">The number of milliseconds to wait until the message will be faded out (1000 milliseconds = 1 second).</Description>
+        <Group>SafeBrowsing4OTRS</Group>
+        <SubGroup>Settings</SubGroup>
+        <Setting>
+            <String Regex="\d+">2000</String>
         </Setting>
     </ConfigItem>
     <ConfigItem Name="Frontend::Module###SafeBrowsing4OTRS" Required="0" Valid="1">
