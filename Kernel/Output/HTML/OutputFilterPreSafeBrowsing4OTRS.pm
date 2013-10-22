@@ -68,7 +68,7 @@ sub Run {
 
         my $ModuleConfigJSON = $Self->{JSONObject}->Encode(
             Data => $ModuleConfig,
-        );;
+        );
 
         my $SafeBrowsing = <<"EOF";
 <div class="SafeBrowsing Checking Hidden">

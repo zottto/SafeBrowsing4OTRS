@@ -9,6 +9,14 @@
     <Description Lang="en">Adds a Google Safe Browsing check to the TicketZoom to inspect all links in an article for possible security risks.</Description>
     <Description Lang="de">Fügt eine Google Safe Browsing-Prüfung zum TicketZoom hinzu und überprüft alle Links in einem Artikel auf mögliche Sicherheitsrisiken.</Description>
     <Filelist>
-        <File Permission="644" Location="Kernel/Config/Files/SafeBrowsing4OTRS.xml"/>
+        <File Permission="644" Location="Kernel/Config/Files/ZZZSafeBrowsing4OTRS.xml"/>
+        <File Permission="644" Location="Kernel/Language/de_SafeBrowsing.pm"/>
+        <File Permission="644" Location="Kernel/Modules/SafeBrowsing4OTRS.pm"/>
+        <File Permission="644" Location="Kernel/Output/HTML/Standard/SafeBrowsing4OTRS.dtl"/>
+        <File Permission="644" Location="Kernel/Output/HTML/OutputFilterPreSafeBrowsing4OTRS.pm"/>
+        <File Permission="644" Location="Kernel/System/SafeBrowsing.pm"/>
+        <File Permission="644" Location="scripts/test/SafeBrowsing.t"/>
+        <File Permission="644" Location="var/httpd/htdocs/js/SafeBrowsing4OTRS.js"/>
+        <File Permission="644" Location="var/httpd/htdocs/skins/Agent/default/css/SafeBrowsing4OTRS.css"/>
     </Filelist>
 </otrs_package>
