@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+    "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+
+<book lang='en'>
+
+<bookinfo>
+<title>SafeBrowsing4OTRS</title>
+<edition>Adds a Google Safe Browsing check to the TicketZoom to inspect all links in an article for possible security risks. Version 1.0.0</edition>
+
+<copyright>
+<year>2013</year>
+<holder>Marc Nilius, otrs@marcnilius.de, http://www.marcnilius.de</holder>
+</copyright>
+
+<date>26.10.2013</date>
+
+<legalnotice>
+    <para>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</para>
+    <para>This work is copyrighted by Marc Nilius, http://www.marcnilius.de.</para>
+    <para>Build Date: 26.10.2013</para>
+</legalnotice>
+
+</bookinfo>
+
+<preface id="preface" >
+    <title>Preface</title>
+    <para>
+        SafeBrowsing4OTRS is an OTRS module to check the articles of your tickets against the Google Safe
+        Browsing database for potential malware and phishing links.
+    </para>
+</preface>
+
+<chapter>
+    <title>Feature List</title>
+    <section>
+        <title>Google Safe Browsing database</title>
+        <para>
+            The Google Safe Browsing database is used by Google to warn users about potentially unsafe websites that deliver malware
+            or are some kind of phishing website. These information are used in the Google search results and also in the
+            Google Chrome browser or Mozilla Firefox browser, if you try to vitis such a website.
+        </para>
+        <para>
+            This OTRS module uses the Google Safe Broswing database to warn the agents about potentially unsafe links or URLs
+            in articles of OTRS tickets, e.g. incoming emails of clients or spam.
+        </para>
+    </section>
+    <section>
+        <title>Warnings shown in the TicketZoom</title>
+        <para>
+            The module checks the links and URLs in the ticket articles and shows a warn message if any of the checked websites
+            are found in the Google Safe Browsing database. The module does not prevent the agent from clicking the link and visiting the
+            website!
+        </para>
+        <para>
+            Please be aware of the fact, that sometimes the database has false entries of websites that are completely safe but are listed
+            as unsafe. Visiting all links and using this module for information about potentially unsafe websites is at your own risk.
+        </para>
+        <para>
+            To always have the latest database updates, the results of a check are not cached in the OTRS database. The module needs
+            an active internet connection on the OTRS server to connect to the Google database.
+        </para>
+    </section>
+</chapter>
+
+<chapter>
+    <title>System Requirements</title>
+    <section>
+        <title>Framework</title>
+        <para>The following OTRS framework is required:</para>
+        <para>
+            OTRS Version 3.2.x and Version 3.3.x.
+        </para>
+        <para>
+            This module uses PubSub event hooks, that were introduced with OTRS 3.2.0 beta5, and does not work
+            in earlier versions of OTRS.
+        </para>
+    </section>
+    <section>
+        <title>Google Safe Browsing database API key</title>
+        <para>
+            In order to get access to the Google Safe Browsing database, you need an API key. This API key is for free.
+            You can get your API key here: <ulink url="https://developers.google.com/safe-browsing/key_signup">https://developers.google.com/safe-browsing/key_signup</ulink>
+        </para>
+        <para>
+            OTRS Version 3.2.x and Version 3.3.x.
+        </para>
+        <para>
+            This module uses PubSub event hooks, that were introduced with OTRS 3.2.0 beta5, and does not work
+            in earlier versions of OTRS.
+        </para>
+    </section>
+</chapter>
+
+<chapter>
+    <title>Installation</title>
+    <para>The following instructions explain how to install the package.</para>
+    <section>
+        <title>Admin Interface</title>
+        <para>
+            Please use the following URL to install the package utilizing the admin
+            interface (please note that you need to be in the admin group).
+        </para>
+        <para>
+            <ulink url="http://localhost/otrs/index.pl?Action=AdminPackageManager">
+                http://localhost/otrs/index.pl?Action=AdminPackageManager
+            </ulink>
+        </para>
+    </section>
+    <section>
+        <title>Command Line</title>
+        <para>
+            Whenever you cannot use the Admin Interface for whatever reason,
+            you may use the following command line tool (&quot;bin/otrs.PackageManager.pl&quot;)
+            instead.
+        </para>
+        <para>
+        <screen>
+            shell> bin/otrs.PackageManager.pl  -a install -p /path/to/$Name-$Version.opm
+        </screen>
+        </para>
+    </section>
+</chapter>
+
+<chapter>
+    <title>Configuration</title>
+    <para>The package can be configured via the SysConfig in the Admin Interface. The following configuration options are available:</para>
+    <section>
+        <title>SafeBrowsing::Active.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Settings.</para>
+        <para>Activates Safe Browsing feature.</para>
+    </section>
+    <section>
+        <title>SafeBrowsing::APIKey.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Settings.</para>
+        <para>The Google Safe Browsing API key. You can get your API key here: https://developers.google.com/safe-browsing/key_signup.</para>
+    </section>
+    <section>
+        <title>SafeBrowsing::CheckOnlyExternalMessages.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Settings.</para>
+        <para>Only check incoming messages for potentially unsafe links and URLs.</para>
+    </section>
+    <section>
+        <title>SafeBrowsing::FadeOutMessage.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Settings.</para>
+        <para>If the module does not find any potentially unsafe links and URLs, fade out the info message after some seconds.</para>
+    </section>
+    <section>
+        <title>SafeBrowsing::FadeOutTime.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Settings.</para>
+        <para>The number of milliseconds to wait until the message will be faded out (1000 milliseconds = 1 second).</para>
+    </section>
+    <section>
+        <title>Frontend::Module###SafeBrowsing4OTRS.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: Frontend::Agent::ModuleRegistration.</para>
+        <para>Frontend module registration for SafeBrowsing4OTRS.</para>
+    </section>
+    <section>
+        <title>Frontend::Output::FilterElementPre###OutputFilterPreSafeBrowsing4OTRS.</title>
+        <para>Group: SafeBrowsing4OTRS, Subgroup: OutputFilter.</para>
+        <para>Output filter to add SafeBrowsing to the TicketZoom.</para>
+    </section>
+    <section>
+        <title>Frontend::Module###AgentTicketZoom.</title>
+        <para>Group: Ticket, Subgroup: Frontend::Agent::ModuleRegistration.</para>
+        <para>Frontend module registration for the agent interface.</para>
+    </section>
+</chapter>
+
+<chapter>
+    <title>ChangeLog</title>
+    <para>
+        Version 1.0.0: First public release.
+    </para>
+</chapter>
+
+<chapter>
+    <title>Contacts</title>
+    <para>Marc Nilius, Mail: otrs@marcnilius.de, Website: http://www.marcnilius.de</para>
+</chapter>
+
+</book>

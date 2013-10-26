@@ -20,35 +20,35 @@
         <File Permission="644" Location="var/httpd/htdocs/js/SafeBrowsing4OTRS.js"/>
         <File Permission="644" Location="var/httpd/htdocs/skins/Agent/default/css/SafeBrowsing4OTRS.css"/>
     </Filelist>
-    <IntroInstall Type="pre" Lang="en" Title="SafeBrowsing4OTRS Installation">
-        <p>
+    <IntroInstall Type="pre" Lang="en" Title="SafeBrowsing4OTRS Installation"><![CDATA[
+        <p class="IntroInstall">
             You are about to install the OTRS module <em>SafeBrowsing4OTRS</em>.
         </p>
-        <p>
+        <p class="IntroInstall">
             This module adds a Google Safe Browsing check to the TicketZoom to inspect
             all links in an article for possible security risks.
         </p>
-        <p>
+        <p class="IntroInstall">
             In order to use this module you need an API key for the Google Safe Browsing database,
             which you can get here for free: <a href="https://developers.google.com/safe-browsing/key_signup" target="_blank">https://developers.google.com/safe-browsing/key_signup</a>.
         </p>
-        <p>
+        <p class="IntroInstall">
             Module author: Marc Nilius, <a href="mailto:otrs@marcnilius.de">otrs@marcnilius.de</a>, <a href="http://www.marcnilius.de" target="_blank">www.marcnilius.de</a>.
         </p>
-    </IntroInstall>
-    <IntroInstall Type="post" Lang="en" Title="SafeBrowsing4OTRS Installation">
-        <p>
+    ]]></IntroInstall>
+    <IntroInstall Type="post" Lang="en" Title="SafeBrowsing4OTRS Installation"><![CDATA[
+        <p class="IntroInstall">
             Thanks for installing the OTRS module <em>SafeBrowsing4OTRS</em>.
         </p>
-        <p>
+        <p class="IntroInstall">
             Don't forget to configure the needed Google Safe Browsing API key in the SysConfig
             (Setting <em>SafeBrowsing::APIKey</em>). You can get your API key here for free:
             <a href="https://developers.google.com/safe-browsing/key_signup" target="_blank">https://developers.google.com/safe-browsing/key_signup</a>.
         </p>
-        <p>
-            If you have any enhancements ideas or if you found a bug, I'm happy to here from you.
+        <p class="IntroInstall">
+            If you have any enhancements or if you found a bug, I'm happy to here from you.
             Please contact me directly: Marc Nilius, <a href="mailto:otrs@marcnilius.de">otrs@marcnilius.de</a>, <a href="http://www.marcnilius.de" target="_blank">www.marcnilius.de</a>.
             Or visit the modules page on Github: <a href="https://github.com/zottto/SafeBrowsing4OTRS" target="_blank">https://github.com/zottto/SafeBrowsing4OTRS</a>.
         </p>
-    </IntroInstall>
+    ]]></IntroInstall>
 </otrs_package>
