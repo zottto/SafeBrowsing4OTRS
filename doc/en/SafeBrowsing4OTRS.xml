@@ -82,13 +82,6 @@
             In order to get access to the Google Safe Browsing database, you need an API key. This API key is for free.
             You can get your API key here: <ulink url="https://developers.google.com/safe-browsing/key_signup">https://developers.google.com/safe-browsing/key_signup</ulink>
         </para>
-        <para>
-            OTRS Version 3.2.x and Version 3.3.x.
-        </para>
-        <para>
-            This module uses PubSub event hooks, that were introduced with OTRS 3.2.0 beta5, and does not work
-            in earlier versions of OTRS.
-        </para>
     </section>
 </chapter>
 
