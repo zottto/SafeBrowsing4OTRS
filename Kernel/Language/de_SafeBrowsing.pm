@@ -33,7 +33,7 @@ sub Data {
     $Self->{Translation}->{'Suspected phishing pages. These pages may be a forgery or imitation of another website, designed to trick users into sharing personal or financial information. Entering any personal information on these pages may result in identity theft or other abuse. You can find out more about phishing from'} =
         'Vermutliche Phishing-Websites. Diese Seiten könnten eine Fälschung oder Imitation einer anderen Website sein, die darauf angelegt ist, die Besucher der Seite dazu zu bringen, persönliche oder finanzielle Informationen anzugeben. Die Eingabe solcher Informationen auf diesen Seiten könnte in einem Identitätsklau oder anderem Mißbrauch enden. Mehr Informationen zu Phishing erhalten sie von';
     $Self->{Translation}->{'Error connecting to the Google Safe Browsing database. Possibly your API key is invalid. Please contact your OTRS Administrator.'} =
-        'fehler beim Verbinden zur Google Safe Browsing Datenbank. Vermutlich ist ihr API-Schlüssel ungültig. Bitte kontaktieren sie ihren OTRS-Administrator.';
+        'Fehler beim Verbinden zur Google Safe Browsing Datenbank. Vermutlich ist ihr API-Schlüssel ungültig. Bitte kontaktieren sie ihren OTRS-Administrator.';
 
     # SysConfig
     $Self->{Translation}->{'Activates Safe Browsing feature.'} = 'Safe Browsing-Funktion aktivieren';
