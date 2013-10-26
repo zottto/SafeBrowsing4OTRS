@@ -60,23 +60,23 @@ Configuration
 -------------
 The package can be configured via the SysConfig in the Admin Interface. The following configuration options are available:
 
-### SafeBrowsing::Active.
+### SafeBrowsing::Active
 *Group: SafeBrowsing4OTRS, Subgroup: Settings.*
 Activates Safe Browsing feature.
 
-### SafeBrowsing::APIKey.
+### SafeBrowsing::APIKey
 *Group: SafeBrowsing4OTRS, Subgroup: Settings.*
 The Google Safe Browsing API key. You can get your API key here: [https://developers.google.com/safe-browsing/key_signup](https://developers.google.com/safe-browsing/key_signup).
 
-### SafeBrowsing::CheckOnlyExternalMessages.
+### SafeBrowsing::CheckOnlyExternalMessages
 *Group: SafeBrowsing4OTRS, Subgroup: Settings.*
 Only check incoming messages for potentially unsafe links and URLs.
 
-### SafeBrowsing::FadeOutMessage.
+### SafeBrowsing::FadeOutMessage
 *Group: SafeBrowsing4OTRS, Subgroup: Settings.*
 If the module does not find any potentially unsafe links and URLs, fade out the info message after some seconds.
 
-### SafeBrowsing::FadeOutTime.
+### SafeBrowsing::FadeOutTime
 *Group: SafeBrowsing4OTRS, Subgroup: Settings.*
 The number of milliseconds to wait until the message will be faded out (1000 milliseconds = 1 second).
 
