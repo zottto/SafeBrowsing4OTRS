@@ -29,10 +29,7 @@ System Requirements
 -------------------
 ### Framework
 The following OTRS framework is required:
-OTRS Version 3.2.x and Version 3.3.x.
-
-This module uses PubSub event hooks, that were introduced with OTRS 3.2.0 beta5, and does not work in earlier
-versions of OTRS.
+OTRS Version 3.0.x.
 
 ### Google Safe Browsing database API key
 In order to get access to the Google Safe Browsing database, you need an API key. This API key is for free.

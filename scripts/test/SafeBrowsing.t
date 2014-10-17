@@ -12,25 +12,11 @@ use utf8;
 
 use vars (qw($Self));
 
-use Kernel::Config;
-use Kernel::System::Encode;
-use Kernel::System::Log;
-use Kernel::System::SafeBrowsing;
-
-my $ConfigObject = Kernel::Config->new();
-my $EncodeObject = Kernel::System::Encode->new(
-    ConfigObject => $ConfigObject,
-);
-my $LogObject = Kernel::System::Log->new(
-    ConfigObject => $ConfigObject,
-    EncodeObject => $EncodeObject,
+our @ObjectDependencies = (
+    'Kernel::System::SafeBrowsing',
 );
 
-my $SafeBrowsingObject = Kernel::System::SafeBrowsing->new(
-    ConfigObject => $ConfigObject,
-    EncodeObject => $EncodeObject,
-    LogObject    => $LogObject,
-);
+my $SafeBrowsingObject = $Kernel::OM->Get('Kernel::System::SafeBrowsing');
 
 # Test 1 - Single URL, no risk
 my $Result = $SafeBrowsingObject->CheckUrl(

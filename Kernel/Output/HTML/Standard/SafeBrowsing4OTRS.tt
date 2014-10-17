@@ -1,0 +1,47 @@
+# --
+# SafeBrowsing4OTRS.tt - provides HTML for SafeBrowsing4OTRS.pm
+# Copyright (C) 2014 Marc Nilius, http://www.marcnilius.de/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("ErrorNoArticle") %]
+<div class="SafeBrowsing NoArticle">
+    <strong>[% Translate("No ArticleID given!") | html %]</strong>
+</div>
+[% RenderBlockEnd("ErrorNoArticle") %]
+
+[% RenderBlockStart("LinksSafe") %]
+<div class="SafeBrowsing Ok">
+    <strong>[% Translate("According to the") | html %] <a href="http://en.wikipedia.org/wiki/Google_Safe_Browsing" target="_blank">[% Translate("Google Safe Browsing database") | html %]</a>[% Translate(", all links and URLs in this article are safe.") | html %]</strong>
+</div>
+[% RenderBlockEnd("LinksSafe") %]
+
+[% RenderBlockStart("LinksWarning") %]
+<div class="SafeBrowsing Warning">
+    <strong>[% Translate("According to the") | html %] <a href="http://en.wikipedia.org/wiki/Google_Safe_Browsing" target="_blank">[% Translate("Google Safe Browsing database") | html %]</a>[% Translate(", at least one of the links and URLs in this article is potentially unsafe. Please see the following list for details.") | html %]</strong>
+    <ul>
+[% RenderBlockStart("LinksWarningURL") %]
+        <li><strong>[% Data.URL | html %]:</strong> [% Data.Warning | html %] (<a href="http://code.google.com/apis/safebrowsing/safebrowsing_faq.html#whyAdvisory" target="_blank">[% Translate("Advisory provided by Google") | html %]</a>)</li>
+[% RenderBlockEnd("LinksWarningURL") %]
+    </ul>
+[% RenderBlockStart("LinksWarningMalware") %]
+    <p>
+        <strong>[% Translate("Malware Warning") | html %]:</strong><br>[% Translate("Visiting these web sites may harm your computer. These pages appear to contain malicious code that could be downloaded to your computer without your consent. You can learn more about harmful web content including viruses and other malicious code and how to protect your computer at") | html %] <a href="StopBadware.org" target="_blank">StopBadware.org</a>.
+    </p>
+[% RenderBlockEnd("LinksWarningMalware") %]
+[% RenderBlockStart("LinksWarningPhishing") %]
+    <p>
+        <strong>[% Translate("Phishing Warning") | html %]:</strong><br>[% Translate("Suspected phishing pages. These pages may be a forgery or imitation of another website, designed to trick users into sharing personal or financial information. Entering any personal information on these pages may result in identity theft or other abuse. You can find out more about phishing from") | html %] <a href="www.antiphishing.org" target="_blank">www.antiphishing.org</a>.
+    </p>
+[% RenderBlockEnd("LinksWarningPhishing") %]
+</div>
+[% RenderBlockEnd("LinksWarning") %]
+
+[% RenderBlockStart("ErrorAPI") %]
+<div class="SafeBrowsing Error">
+    <strong>[% Translate("Error connecting to the Google Safe Browsing database. Possibly your API key is invalid. Please contact your OTRS Administrator.") | html %]</strong>
+</div>
+[% RenderBlockEnd("ErrorAPI") %]

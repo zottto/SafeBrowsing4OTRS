@@ -9,16 +9,16 @@
 <edition>Adds a Google Safe Browsing check to the TicketZoom to inspect all links in an article for possible security risks. Version 1.0.0</edition>
 
 <copyright>
-<year>2013</year>
+<year>2014</year>
 <holder>Marc Nilius, otrs@marcnilius.de, http://www.marcnilius.de</holder>
 </copyright>
 
-<date>26.10.2013</date>
+<date>17.10.2014</date>
 
 <legalnotice>
     <para>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</para>
     <para>This work is copyrighted by Marc Nilius, http://www.marcnilius.de.</para>
-    <para>Build Date: 26.10.2013</para>
+    <para>Build Date: 17.10.2014</para>
 </legalnotice>
 
 </bookinfo>
@@ -69,11 +69,7 @@
         <title>Framework</title>
         <para>The following OTRS framework is required:</para>
         <para>
-            OTRS Version 3.2.x and Version 3.3.x.
-        </para>
-        <para>
-            This module uses PubSub event hooks, that were introduced with OTRS 3.2.0 beta5, and does not work
-            in earlier versions of OTRS.
+            OTRS Version 4.0.x.
         </para>
     </section>
     <section>
@@ -162,6 +158,9 @@
 
 <chapter>
     <title>ChangeLog</title>
+    <para>
+        Version 1.1.0: Release for OTRS 4.
+    </para>
     <para>
         Version 1.0.0: First public release.
     </para>

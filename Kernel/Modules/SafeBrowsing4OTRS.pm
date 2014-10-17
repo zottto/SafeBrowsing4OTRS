@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/SafeBrowsing4OTRS.pm - SafeBrowsing4OTRS module
-# Copyright (C) 2013 Marc Nilius, http://www.marcnilius.de/
+# Copyright (C) 2014 Marc Nilius, http://www.marcnilius.de/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -12,7 +12,9 @@ package Kernel::Modules::SafeBrowsing4OTRS;
 use strict;
 use warnings;
 
-use Kernel::System::SafeBrowsing;
+our @ObjectDependencies = (
+    'Kernel::System::SafeBrowsing',
+);
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -20,18 +22,6 @@ sub new {
     # allocate new hash for object
     my $Self = {%Param};
     bless( $Self, $Type );
-
-    # check needed objects
-    for my $Needed (
-        qw(ParamObject DBObject TicketObject LayoutObject LogObject QueueObject ConfigObject UserObject SessionObject)
-        )
-    {
-        if ( !$Self->{$Needed} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $Needed!" );
-        }
-    }
-
-    $Self->{SafeBrowsingObject} = Kernel::System::SafeBrowsing->new(%Param);
 
     return $Self;
 }
@@ -41,27 +31,29 @@ sub Run {
     my $Content = '';
 
     # get params
-    my $ArticleID = $Self->{ParamObject}->GetParam( Param => 'ArticleID' );
+    my $ArticleID
+        = $Kernel::OM->Get('Kernel::System::Web::Request')->GetParam( Param => 'ArticleID' );
 
+    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
     if ( !$ArticleID ) {
-        $Self->{LayoutObject}->Block(
+        $LayoutObject->Block(
             Name => 'ErrorNoArticle',
         );
 
-        $Content = $Self->{LayoutObject}->Output(
+        $Content = $LayoutObject->Output(
             TemplateFile => 'SafeBrowsing4OTRS',
         );
 
-        return $Self->{LayoutObject}->Attachment(
+        return $LayoutObject->Attachment(
             ContentType => 'text/html',
-            Charset     => $Self->{LayoutObject}->{UserCharset},
+            Charset     => $LayoutObject->{UserCharset},
             Content     => $Content,
             Type        => 'inline',
             NoCache     => 1,
         );
     }
 
-    my %Article = $Self->{TicketObject}->ArticleGet(
+    my %Article = $Kernel::OM->Get('Kernel::System::Ticket')->ArticleGet(
         ArticleID     => $ArticleID,
         DynamicFields => 0,
     );
@@ -81,19 +73,19 @@ sub Run {
     my $Result;
 
     if ( scalar @URLList > 0 ) {
-        $Result = $Self->{SafeBrowsingObject}->CheckUrl(
+        $Result = $Kernel::OM->Get('Kernel::System::SafeBrowsing')->CheckUrl(
             URL => \@URLList,
         );
     }
 
     if ( scalar @URLList == 0 || $Result && $Result->{'Status'} eq 'Ok' ) {
-        $Self->{LayoutObject}->Block(
+        $LayoutObject->Block(
             Name => 'LinksSafe',
         );
     }
 
     elsif ( $Result->{'Status'} eq 'Warning' ) {
-        $Self->{LayoutObject}->Block(
+        $LayoutObject->Block(
             Name => 'LinksWarning',
         );
 
@@ -109,7 +101,7 @@ sub Run {
                 $Phishing++;
             }
 
-            $Self->{LayoutObject}->Block(
+            $LayoutObject->Block(
                 Name => 'LinksWarningURL',
                 Data => {
                     URL     => $_,
@@ -119,31 +111,31 @@ sub Run {
         }
 
         if ($Malware) {
-            $Self->{LayoutObject}->Block(
+            $LayoutObject->Block(
                 Name => 'LinksWarningMalware',
             );
         }
 
         if ($Phishing) {
-            $Self->{LayoutObject}->Block(
+            $LayoutObject->Block(
                 Name => 'LinksWarningPhishing',
             );
         }
     }
 
     else {
-        $Self->{LayoutObject}->Block(
+        $LayoutObject->Block(
             Name => 'ErrorAPI',
         );
     }
 
-    $Content = $Self->{LayoutObject}->Output(
+    $Content = $LayoutObject->Output(
         TemplateFile => 'SafeBrowsing4OTRS',
     );
 
-    return $Self->{LayoutObject}->Attachment(
+    return $LayoutObject->Attachment(
         ContentType => 'text/html',
-        Charset     => $Self->{LayoutObject}->{UserCharset},
+        Charset     => $LayoutObject->{UserCharset},
         Content     => $Content,
         Type        => 'inline',
         NoCache     => 1,

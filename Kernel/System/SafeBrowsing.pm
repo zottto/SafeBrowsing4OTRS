@@ -14,6 +14,11 @@ use warnings;
 
 use LWP::UserAgent;
 
+our @ObjectDependencies = (
+    'Kernel::Config',
+    'Kernel::System::Log',
+);
+
 =head1 NAME
 
 Kernel::System::SafeBrowsing - basic functions for SafeBrowsing4OTRS
@@ -32,18 +37,9 @@ Provides the basic functions for SafeBrowsing4OTRS
 
 create an object
 
-    use Kernel::Config;
-    use Kernel::System::Encode;
-    use Kernel::System::Log;
-
-    my $ConfigObject = Kernel::Config->new();
-    my $EncodeObject = Kernel::System::Encode->new(
-        ConfigObject => $ConfigObject,
-    );
-    my $LogObject = Kernel::System::Log->new(
-        ConfigObject => $ConfigObject,
-        EncodeObject => $EncodeObject,
-    );
+    use Kernel::System::ObjectManager;
+    local $Kernel::OM = Kernel::System::ObjectManager->new();
+    my $SafeBrowsingObject = $Kernel::OM->Get('Kernel::System::SafeBrowsing');
 
 =cut
 
@@ -53,13 +49,6 @@ sub new {
     # allocate new hash for object
     my $Self = {};
     bless( $Self, $Type );
-
-    # check needed objects
-    for (qw(ConfigObject LogObject EncodeObject)) {
-        $Self->{$_} = $Param{$_} || die "Got no $_!";
-    }
-
-    $Self->{UserAgent} = LWP::UserAgent->new();
 
     return $Self;
 }
@@ -75,23 +64,26 @@ sub CheckUrl {
     my ( $Self, %Param ) = @_;
 
     # get API key from SysConfig
-    my $APIKey = $Self->{ConfigObject}->Get('SafeBrowsing::APIKey');
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+    my $APIKey       = $ConfigObject->Get('SafeBrowsing::APIKey');
 
     # if SafeBrowsing is not active, stop execution
-    if ( !$Self->{ConfigObject}->Get('SafeBrowsing::Active') ) {
-        $Self->{LogObject}->Log( Priority => 'error', Message => 'SafeBrowsing not active!' );
+    if ( !$ConfigObject->Get('SafeBrowsing::Active') ) {
+        $Kernel::OM->Get('Kernel::System::Log')
+            ->Log( Priority => 'error', Message => 'SafeBrowsing not active!' );
         return;
     }
 
     # if no API key is given, stop execution
     if ( length($APIKey) == 0 ) {
-        $Self->{LogObject}->Log( Priority => 'error', Message => 'No SafeBrowsing API key!' );
+        $Kernel::OM->Get('Kernel::System::Log')
+            ->Log( Priority => 'error', Message => 'No SafeBrowsing API key!' );
         return;
     }
 
     # if no URL is given, stop execution
     if ( !$Param{URL} ) {
-        $Self->{LogObject}->Log( Priority => 'error', Message => 'Need URL!' );
+        $Kernel::OM->Get('Kernel::System::Log')->Log( Priority => 'error', Message => 'Need URL!' );
         return;
     }
 
@@ -118,7 +110,8 @@ sub CheckUrl {
     $Request->content( $URLCount . "\n" . $URLList );
 
     # send POST request and save response
-    my $Response = $Self->{UserAgent}->request($Request);
+    my $UserAgentObject = LWP::UserAgent->new();
+    my $Response        = $UserAgentObject->request($Request);
 
     # error while checking (Bad Request, API key not valid, service unavailable)
     if ( $Response->code() == 400 || $Response->code() == 401 || $Response->code() == 503 ) {

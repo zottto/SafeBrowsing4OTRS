@@ -12,19 +12,17 @@ package Kernel::Output::HTML::OutputFilterPreSafeBrowsing4OTRS;
 use strict;
 use warnings;
 
+our @ObjectDependencies = (
+    'Kernel::Config',
+    'Kernel::System::JSON',
+);
+
 sub new {
     my ( $Type, %Param ) = @_;
 
     # allocate new hash for object
     my $Self = {%Param};
     bless( $Self, $Type );
-
-    # check needed objects
-    for my $Needed (qw(ConfigObject LogObject TimeObject MainObject EncodeObject)) {
-        if ( !$Self->{$Needed} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $Needed!" );
-        }
-    }
 
     return $Self;
 }
@@ -37,8 +35,10 @@ sub Run {
 
     return 1 if !$TemplateName;
 
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+
     # get output filter pre configs
-    my $OutputFilterPreConfigs = $Self->{ConfigObject}->Get('Frontend::Output::FilterElementPre');
+    my $OutputFilterPreConfigs = $ConfigObject->Get('Frontend::Output::FilterElementPre');
 
     return if !$OutputFilterPreConfigs;
     return if ref $OutputFilterPreConfigs ne 'HASH';
@@ -58,27 +58,27 @@ sub Run {
     # apply only if template is valid in config
     return 1 if !$ValidTemplates->{$TemplateName};
 
-    if ( $Self->{ConfigObject}->Get('SafeBrowsing::Active') ) {
+    if ( $ConfigObject->Get('SafeBrowsing::Active') ) {
 
         my $ModuleConfig = {
-            FadeOut      => $Self->{ConfigObject}->Get('SafeBrowsing::FadeOutMessage'),
-            FadeOutTime  => $Self->{ConfigObject}->Get('SafeBrowsing::FadeOutTime'),
-            OnlyExternal => $Self->{ConfigObject}->Get('SafeBrowsing::CheckOnlyExternalMessages'),
+            FadeOut      => $ConfigObject->Get('SafeBrowsing::FadeOutMessage'),
+            FadeOutTime  => $ConfigObject->Get('SafeBrowsing::FadeOutTime'),
+            OnlyExternal => $ConfigObject->Get('SafeBrowsing::CheckOnlyExternalMessages'),
         };
 
-        my $ModuleConfigJSON = $Self->{JSONObject}->Encode(
+        my $ModuleConfigJSON = $Kernel::OM->Get('Kernel::System::JSON')->Encode(
             Data => $ModuleConfig,
         );
 
         my $SafeBrowsing = <<"EOF";
 <div class="SafeBrowsing Checking Hidden">
-    \$Text{"Checking article links for security risks..."}
+    [% Translate("Checking article links for security risks...") | html %]
 </div>
-<!-- dtl:js_on_document_complete -->
+[% WRAPPER JSOnDocumentComplete %]
 <script type="text/javascript">//<![CDATA[
     SafeBrowsing4OTRS.Init($ModuleConfigJSON);
 //]]></script>
-<!-- dtl:js_on_document_complete -->
+[% END %]
 EOF
 
         ${ $Param{Data} }

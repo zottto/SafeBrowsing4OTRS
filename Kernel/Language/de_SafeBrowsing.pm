@@ -1,6 +1,6 @@
 # --
 # Kernel/Language/de_SafeBrowsing.pm - translation file
-# Copyright (C) 2013 Marc Nilius, http://www.marcnilius.de/
+# Copyright (C) 2014 Marc Nilius, http://www.marcnilius.de/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -11,6 +11,7 @@ package Kernel::Language::de_SafeBrowsing;
 
 use strict;
 use warnings;
+use utf8;
 
 sub Data {
     my $Self = shift;
