@@ -29,7 +29,7 @@ System Requirements
 -------------------
 ### Framework
 The following OTRS framework is required:
-OTRS Version 3.0.x.
+OTRS Version 4.0.x.
 
 ### Google Safe Browsing database API key
 In order to get access to the Google Safe Browsing database, you need an API key. This API key is for free.
