@@ -82,7 +82,7 @@ OPM package files
 OPM package files can be found:
 
 - on Github: [https://github.com/zottto/SafeBrowsing4OTRS](https://github.com/zottto/SafeBrowsing4OTRS)
-- on OPAR: [http://opar.perl-services.de/dist/SafeBrowsing4OTRS-1.0.0](http://opar.perl-services.de/dist/SafeBrowsing4OTRS-1.0.0)
+- on OPAR: [http://opar.perl-services.de/dist/SafeBrowsing4OTRS-1.1.0](http://opar.perl-services.de/dist/SafeBrowsing4OTRS-1.1.0)
 
 License
 -------
